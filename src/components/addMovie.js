@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 
-const AddMovie = ({ setMovies }) => {
+const AddMovie = ({ setMovies }) => {  // Expect setMovies as a prop
   const [title, setTitle] = useState('');
   const [director, setDirector] = useState('');
   const [year, setYear] = useState('');
@@ -19,15 +19,16 @@ const AddMovie = ({ setMovies }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer YOUR_ADMIN_TOKEN`, // Replace with the actual token
+          'Authorization': `Bearer YOUR_ADMIN_TOKEN`,  // Replace with actual token
         },
         body: JSON.stringify(newMovie),
       });
 
       if (response.ok) {
-        const addedMovie = await response.json(); // Get the added movie
-        setMovies(prevMovies => [...prevMovies, addedMovie]); // Update the movie list
+        const addedMovie = await response.json();  // Assuming the added movie is returned
         alert('Movie added successfully!');
+
+        setMovies(prevMovies => [...prevMovies, addedMovie]);  // Append the new movie to the movies state
       } else {
         alert('Failed to add movie');
       }
